@@ -15,33 +15,20 @@ resource "aws_instance" "web-server" {
     # Prepare the environment
     sudo yum update -y  
 
-    # Install minikube 
-    curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-arm64
-    sudo install minikube-linux-arm64 /usr/local/bin/minikube
-
-    # Install Docker
-    sudo yum install docker -y
-    sudo systemctl enable docker.service
-    sudo systemctl start docker.service
-    sudo usermod -aG docker ec2-user
-    sudo newgrp docker
+    # Install K3s
+    curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644
+    k3s kubectl create namespace twistlock
     
-    # Start minikube 
-    minikube start --force
-    minikube kubectl -- create namespace twistlock
-
     # Install Defender
     sudo yum install jq -y
     AUTH_DATA="$(printf '{ "username": "%s", "password": "%s" }' "${var.pcc_username}" "${var.pcc_password}")"
     TOKEN=$(curl -sSLk -d "$AUTH_DATA" -H 'content-type: application/json' "https://${var.pcc_domain_name}/api/v1/authenticate" | jq -r ' .token ')
-    # curl -sSLk -H "authorization: Bearer $TOKEN" -X POST "https://${var.pcc_domain_name}/api/v1/scripts/defender.sh" | sudo bash -s -- -c "${var.pcc_domain_name}" -d "none" -m
-    # if [[ ! -f ./twistcli || $(./twistcli --version) != *"22.06.179"* ]]; then curl --progress-bar -L -k --header "authorization: Bearer $TOKEN https://${var.pcc_domain_name}/api/v1/util/arm64/twistcli > twistcli; chmod +x twistcli; fi; ./twistcli defender install kubernetes --namespace twistlock --monitor-service-accounts --token $TOKEN --address https://${var.pcc_domain_name} --cluster-address ${var.pcc_domain_name} 
-    curl -sSLk -H "authorization: Bearer $TOKEN" -X POST -d '{"orchestration": "Kubernetes", "consoleAddr": "${var.pcc_domain_name}", "namespace": "twistlock"} "https://${var.pcc_domain_name}/api/v1/defenders/daemonset.yaml"
-    minikube kubectl -- apply -f daemonset.yaml  
+    curl -sSLk -H "authorization: Bearer $TOKEN" -X POST -d '{"orchestration": "Kubernetes", "consoleAddr": "${var.pcc_domain_name}", "namespace": "twistlock", "cri": true}' "https://${var.pcc_domain_name}/api/v22.06/defenders/daemonset.yaml" > daemonset.yaml
+    k3s kubectl apply -f daemonset.yaml -n twistlock
     EOF
 
   tags = {
-    Name = "minikube-server"
+    Name = "k3s-server"
   }
   monitoring = true
   root_block_device {
@@ -73,9 +60,16 @@ resource "aws_security_group" "allow-ssh-web" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
-    description = "SSH from specific host"
+    description = "SSH"
     from_port   = 22
     to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [var.ssh_allowed_host]
+  }
+  ingress {
+    description = "Kubernetes API Server"
+    from_port   = 6443
+    to_port     = 6443
     protocol    = "tcp"
     cidr_blocks = [var.ssh_allowed_host]
   }
