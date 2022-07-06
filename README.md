@@ -18,16 +18,19 @@ This repository contains terraform files to deploy a k3s cluster on an EC2 insta
 
 ## How to Use 
 1. Clone this repository. 
-`git clone https://github.com/amckenzie7/Workload-Protection-on-ARM.git`
-`cd Workload-Protection-on-ARM`
-2. Open the terraform.auto.tfvars file and replace the following variables. Do not include the braces. 
-`
+```
+git clone https://github.com/amckenzie7/Workload-Protection-on-ARM.git
+cd Workload-Protection-on-ARM
+```
+2. Open the `terraform.auto.tfvars` file and replace the following variables. Do not include the braces. 
+```
 key_pair         = "[KEY_PAIR]"
 pcc_username     = "[COMPUTE_USER]" # Access ID for SaaS users
 pcc_password     = "[COMPUTE_PASS]" # Secret Key for SaaS users
-pcc_domain_name  = "[CONSOLE_DOMAIN_NAME]" # Domain name loacted in Compute > Manage > System > Utilities Path to Console for SaaS Users`
-3. Navigate to the provider.tf file and modify the terrraform block to organization and workspace this project will be executed within Terraform Cloud. 
-`
+pcc_domain_name  = "[CONSOLE_DOMAIN_NAME]" # Domain name loacted in Compute > Manage > System > Utilities Path to Console for SaaS Users
+```
+3. Navigate to the `provider.tf` file and modify the terrraform block to organization and workspace this project will be executed within Terraform Cloud. 
+```
 terraform {
   cloud {
     organization = "[ORGANIZATION_NAME]"
@@ -37,10 +40,16 @@ terraform {
     }
   }
 }
-`
+```
 4. Initialize the project
-`terraform init`
+```
+terraform init
+```
 5. Validate the project 
-`terraform validate`
+```
+terraform validate
+```
 6. Apply the project
-`terraform apply`
+```
+terraform apply
+```
