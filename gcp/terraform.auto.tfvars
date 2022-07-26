@@ -1,0 +1,5 @@
+gcp_region      = "us-central1"
+project_id      = "calm-armor-322420"
+pcc_username    = "aamckenzie_paloaltonetworks_com"
+pcc_password    = "?fKaJG6cwNXqM"
+pcc_domain_name = "console-master-prisma.aamckenzie-pcc.demo.twistlock.com"  
