@@ -36,6 +36,7 @@ cd aws
 cd gcp
 ```
 3. Open the `terraform.auto.tfvars` file and replace the following variables. Do not include the braces. 
+
 **AWS**
 ```
 key_pair         = "[KEY_PAIR]" # EC2 Instance Key Pair
@@ -79,8 +80,8 @@ terraform apply
 - Custom networking resources for GCP
 
 ## Addtional Resources
-[Primsa Cloud Compute System Requirements](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/install/system_requirements)
-[Prisma Cloud + AWS ARM Announcement Blog](https://www.paloaltonetworks.com/blog/prisma-cloud/aws-graviton/)
-[Prisma Cloud + GCP ARM Announcement Blog](https://www.paloaltonetworks.com/blog/prisma-cloud/supports-arm-workloads-on-google-cloud-and-gke/)
-[AWS Terraform Provider Documentation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
-[GCP Terraform Provider Docuementation](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/getting_started)
+- [Primsa Cloud Compute System Requirements](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/install/system_requirements)
+- [Prisma Cloud + AWS ARM Announcement Blog](https://www.paloaltonetworks.com/blog/prisma-cloud/aws-graviton/)
+- [Prisma Cloud + GCP ARM Announcement Blog](https://www.paloaltonetworks.com/blog/prisma-cloud/supports-arm-workloads-on-google-cloud-and-gke/)
+- [AWS Terraform Provider Documentation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
+- [GCP Terraform Provider Docuementation](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/getting_started)
