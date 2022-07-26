@@ -5,7 +5,7 @@ resource "google_compute_instance" "arm_instance" {
 
   boot_disk {
     initialize_params {
-      image = "ubuntu-2004-lts-arm64"
+      image = var.image_name
       size  = 32
     }
   }

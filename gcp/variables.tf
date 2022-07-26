@@ -13,3 +13,6 @@ variable "pcc_password" {
 variable "pcc_username" {
   type = string
 }
+variable "image_name" {
+  type = string
+}
