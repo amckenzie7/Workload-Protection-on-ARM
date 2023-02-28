@@ -43,4 +43,8 @@ resource "aws_launch_template" "arm_template" {
       Name = "arm-instance"
     }
   }
+  tags = {
+    git_org  = "amckenzie7"
+    git_repo = "Workload-Protection-on-ARM"
+  }
 }
