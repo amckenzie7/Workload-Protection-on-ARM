@@ -6,7 +6,9 @@ resource "aws_vpc" "vpc-tf" {
   enable_dns_hostnames = true
   enable_dns_support   = true
   tags = {
-    Name = "vpc-tf"
+    Name     = "vpc-tf"
+    git_org  = "amckenzie7"
+    git_repo = "Workload-Protection-on-ARM"
   }
 }
 
@@ -16,14 +18,18 @@ resource "aws_subnet" "subnet-tf" {
   map_public_ip_on_launch = true
   availability_zone       = element(data.aws_availability_zones.az.names, 0)
   tags = {
-    Name = "subnet-tf"
+    Name     = "subnet-tf"
+    git_org  = "amckenzie7"
+    git_repo = "Workload-Protection-on-ARM"
   }
 }
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc-tf.id
   tags = {
-    Name = "igw-tf"
+    Name     = "igw-tf"
+    git_org  = "amckenzie7"
+    git_repo = "Workload-Protection-on-ARM"
   }
 }
 
@@ -36,6 +42,8 @@ resource "aws_default_route_table" "internet_route_table" {
   }
 
   tags = {
-    Name = "default-route-table"
+    Name     = "default-route-table"
+    git_org  = "amckenzie7"
+    git_repo = "Workload-Protection-on-ARM"
   }
 }

@@ -35,4 +35,8 @@ resource "google_compute_instance" "arm_instance" {
     curl -sSLk -H "authorization: Bearer $TOKEN" -X POST -d '{"orchestration": "Kubernetes", "consoleAddr": "${var.pcc_domain_name}", "namespace": "twistlock", "cri": true}' "https://${var.pcc_domain_name}/api/v22.06/defenders/daemonset.yaml" > daemonset.yaml
     k3s kubectl apply -f daemonset.yaml -n twistlock
   SCRIPT
+  labels = {
+    git_org  = "amckenzie7"
+    git_repo = "Workload-Protection-on-ARM"
+  }
 }

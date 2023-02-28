@@ -28,7 +28,9 @@ resource "aws_instance" "web-server" {
     EOF
 
   tags = {
-    Name = "k3s-server"
+    Name     = "k3s-server"
+    git_org  = "amckenzie7"
+    git_repo = "Workload-Protection-on-ARM"
   }
   monitoring = true
   root_block_device {
@@ -83,6 +85,8 @@ resource "aws_security_group" "allow-ssh-web" {
   }
 
   tags = {
-    Name = "allow-ssh-web"
+    Name     = "allow-ssh-web"
+    git_org  = "amckenzie7"
+    git_repo = "Workload-Protection-on-ARM"
   }
 }
