@@ -43,4 +43,7 @@ resource "aws_launch_template" "arm_template" {
       Name = "arm-instance"
     }
   }
+  tags = {
+    user = "pchandaliya"
+  }
 }
