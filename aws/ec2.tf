@@ -29,6 +29,7 @@ resource "aws_instance" "web-server" {
 
   tags = {
     Name = "k3s-server"
+    user = "pchandaliya"
   }
   monitoring = true
   root_block_device {
@@ -84,5 +85,6 @@ resource "aws_security_group" "allow-ssh-web" {
 
   tags = {
     Name = "allow-ssh-web"
+    user = "pchandaliya"
   }
 }
