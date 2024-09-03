@@ -7,6 +7,7 @@ resource "aws_vpc" "vpc-tf" {
   enable_dns_support   = true
   tags = {
     Name = "vpc-tf"
+    user = "pchandaliya"
   }
 }
 
@@ -17,6 +18,7 @@ resource "aws_subnet" "subnet-tf" {
   availability_zone       = element(data.aws_availability_zones.az.names, 0)
   tags = {
     Name = "subnet-tf"
+    user = "pchandaliya"
   }
 }
 
@@ -24,6 +26,7 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc-tf.id
   tags = {
     Name = "igw-tf"
+    user = "pchandaliya"
   }
 }
 
@@ -37,5 +40,6 @@ resource "aws_default_route_table" "internet_route_table" {
 
   tags = {
     Name = "default-route-table"
+    user = "pchandaliya"
   }
 }
